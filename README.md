@@ -9,7 +9,7 @@ The component is entirely Javascript-driven, and is in fact a thin wrapper aroun
 Usage
 -----
 
-`example.html` should get you started. The example uses RTMFP so you will need a Stratus key easily obtainable here [http://labs.adobe.com/technologies/cirrus/](http://labs.adobe.com/technologies/cirrus/). When the page is loaded onpen your browser console to get a peek at the internals. Once your webcam is published you will find a peerID in the console that can be used in the flash-stream component.
+`example.html` should get you started. The example uses RTMFP so you will need a Stratus key which can easily be obtained here [http://labs.adobe.com/technologies/cirrus/](http://labs.adobe.com/technologies/cirrus/). When the page is loaded open your browser console to get a peek at the internals. Once your webcam is published you will find a peerID in the console that can be used in the flash-stream component.
 
 The API being very close to the original Flash API, when in doubt look as the Actionscript source and refer to the corresponding documentation.
 
