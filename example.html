@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <title></title>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/swfobject/2.2/swfobject.min.js"></script>
+  <script>
+    var stratusKey = '--- ADD YOUR STRATUS KEY HERE ---';
+    
+    var connectUrl = 'rtmfp://stratus.adobe.com/' + stratusKey + '/';
+    var streamName = 'live';
+
+    document.addEventListener('DOMContentLoaded', onLoad, false);
+
+    function onLoad() {
+      var id = 'camera';
+      var camera = document.querySelector('#' + id);
+
+      swfobject.embedSWF(
+        'FlashCamera.swf',
+        id,
+        camera.clientWidth, camera.clientHeight,
+        '10.0.0', '',
+        { callback: onCameraEvent, id: id },
+        { wmode: 'transparent', allowScriptAccess: 'always' }
+      );
+
+      function onCameraEvent(id, ev) {
+        var eventName = ev.shift();
+        var eventArgs = ev;
+
+        console.log('*', id, eventName, eventArgs);
+
+        switch(eventName) {
+
+          case 'Flash.Ready':
+            var names = camera.getNames();
+            console.log('cameras found:', names);
+
+            var cameraIndex = 0;
+            console.log('requesting camera', names[cameraIndex]);
+            camera.getCamera(cameraIndex);
+            return;
+
+          case 'Camera.Muted':
+            console.log('user refused camera access');
+            return;
+
+          case 'Camera.Unmuted':
+            console.log('connecting to', connectUrl);
+            camera.setQuality(0, 90);
+            camera.connect(connectUrl);
+            return;
+
+          case 'NetConnection.Connect.Success':
+            console.log('publishing on', streamName);
+            camera.publish(streamName, true);
+            return;
+
+          case 'NetStream.Publish.Start':
+            console.log('publishing started', camera.getNearID());
+            return;
+        }
+      }
+
+    }
+  </script>
+</head>
+<body>
+  <div id="camera" style="width: 640px; height: 480px; background-color: black;"></div>
+</body>
+</html>
