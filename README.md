@@ -13,8 +13,8 @@ Usage
 
 The API being very close to the original Flash API, when in doubt look as the Actionscript source and refer to the corresponding documentation.
 
-Builing
--------
+Building
+--------
 
 You can rebuild a modified `FlashCamera.as` with the included Makefile. You will need to have the Flex SDK installed and `mxmlc` in your PATH. Then simply run
 
